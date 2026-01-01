@@ -1,14 +1,41 @@
 import "./ContactEditor.css";
+import { useState, useRef } from "react";
 
-export default function ContactEditor() {
+export default function ContactEditor({ onCreate }) {
+
+  const [name, setName] = useState('');
+  const [contact, setContact] = useState('');
+  const nameRef = useRef();
+  const contactRef = useRef();
+
+  const onChangeName = (e) => {
+    setName(e.target.value);
+  } 
+
+  const onChangeContact = (e) => {
+    setContact(e.target.value);
+  }
+
+  const onClickCreate = () => {
+    if (name.trim() === "") {
+      nameRef.current.focus();
+      return;
+    }
+    if (contact.trim() === "") {
+      contactRef.current.focus();
+      return;
+    }
+    onCreate(name, contact);
+  }
+
   return (
     <div className="ContactEditor">
       <div className="title">Add Contact</div>
       <div className="input_wrapper">
-        <input className="name" placeholder="이름 ..." />
-        <input className="contact" placeholder="연락처(이메일) ..." />
+        <input className="name" placeholder="이름 ..." value={name} ref={nameRef} onChange={onChangeName} />
+        <input className="contact" placeholder="연락처(이메일) ..." value={contact} ref={contactRef} onChange={onChangeContact} />
       </div>
-      <button>Add</button>
+      <button onClick={onClickCreate}>Add</button>
     </div>
   );
 }
