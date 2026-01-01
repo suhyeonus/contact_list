@@ -6,7 +6,7 @@ import { useReducer, useRef } from "react";
 function reducer(state, action) {
   switch (action.type) {
     case "CREATE":
-      return [...state, action.contact];
+      return [action.contact, ...state];
     case "REMOVE":
       return state.filter(contact => contact.id !== action.targetId);
     default:
