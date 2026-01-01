@@ -26,12 +26,21 @@ export default function ContactEditor({ onCreate }) {
       return;
     }
     onCreate(name, contact);
+    setName('');
+    setContact('');
+    nameRef.current.focus();
+  }
+
+  const onKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      onClickCreate();
+    }
   }
 
   return (
     <div className="ContactEditor">
       <div className="title">Add Contact</div>
-      <div className="input_wrapper">
+      <div className="input_wrapper" onKeyDown={onKeyDown}>
         <input className="name" placeholder="이름 ..." value={name} ref={nameRef} onChange={onChangeName} />
         <input className="contact" placeholder="연락처(이메일) ..." value={contact} ref={contactRef} onChange={onChangeContact} />
       </div>
