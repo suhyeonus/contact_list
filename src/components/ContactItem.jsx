@@ -1,6 +1,7 @@
 import "./ContactItem.css";
+import { memo } from "react";
 
-export default function ContactItem({ id, name, contact, onRemove }) {
+function ContactItem({ id, name, contact, onRemove }) {
 
   const onClickRemove = () => {
     onRemove(id);
@@ -14,3 +15,5 @@ export default function ContactItem({ id, name, contact, onRemove }) {
     </div>
   );
 }
+
+export default memo(ContactItem);
